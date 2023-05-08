@@ -4,8 +4,9 @@ import layerControlGrouped from './layerControlGrouped.js'
 
 
 const apiKey = 'G28Wx0TEh00gRJifwBmD'
-  // https://cloud.maptiler.com/maps/
-  // https://github.com/maplibre/demotiles
+  
+// https://cloud.maptiler.com/maps/
+// https://github.com/maplibre/demotiles
 var styles = [
     {
       title: "Topo",
@@ -46,8 +47,8 @@ var styles = [
 var map = new maplibregl.Map({
   container: 'map',
   style: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey, // stylesheet location
-  center: [-93.290, 30.8597], // starting position [lng, lat]
-  zoom: 8 // starting zoom
+  center: [-93.291, 30.8597], // starting position [lng, lat]
+  zoom: 17 // starting zoom
   });
 
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
@@ -68,85 +69,55 @@ var popup = new maplibregl.Popup({
 
 map.on('load', function () {
 
-  map.addSource('counties', {
-    'type': 'geojson',
-    'data': {
-      type: "FeatureCollection",
-      features: []
+  // map.addSource('Depth', {
+  //   'type': 'geojson',
+  //   'data': {
+  //     type: "FeatureCollection",
+  //     features: []
+  //   }
+  // });
+
+  map.loadImage(
+    '../data/img/bluehatch.png',
+    function (err, image) {
+        // Throw an error if something went wrong
+        if (err) throw err;
+        // Declare the image
+        map.addImage('bluehatch', image);
     }
-  });
+  );
 
   map.addLayer({
-    'id': 'counties-outline',
-    'type': 'line',
-    'source': 'counties',
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'line-color': 'white',
-      'line-opacity': 0.5
-    }
-  });
-
-  map.addLayer({
-    'id': 'Counties',
-    'type': 'fill',
-    'source': 'counties',
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-color': 'lightgray',
-      'fill-outline-color': 'white',
-      'fill-opacity': 0.9
-    }
-  });
-
-  map.addLayer({
-    'id': 'states-fill',
+    'id': '2yr Existing Depth',
     'type': 'fill',
     'source': {
       type: "geojson",
-      data: "../data/states.min.geojson"
+      data: "../data/westPark/2yr Existing Depth.geojson"
     },
     'layout': {
       'visibility': 'none'
     },
     'paint': {
-      'fill-color': '#121212',
-      'fill-opacity': 0.3
+      'fill-color': 'orange',
+      'fill-outline-color': 'orange',
+      'fill-opacity': 0.5
     }
   });
 
   map.addLayer({
-    'id': 'states-outline',
-    'type': 'line',
+    'id': '2yr Proposed Depth',
+    'type': 'fill',
     'source': {
       type: "geojson",
-      data: "../data/states.min.geojson"
-    },
-    'layout': {
-      'visibility': 'visible'
-    },
-    'paint': {
-      'line-color': '#121212',
-      'line-opacity': 0.6
-    }
-  });
-
-  map.addLayer({
-    'id': 'States',
-    'type': 'line',
-    'source': {
-      type: "geojson",
-      data: "../data/states.geojson"
+      data: "../data/westPark/2yr Proposed Depth.geojson"
     },
     'layout': {
       'visibility': 'none'
     },
     'paint': {
-      'line-color': '#121212',
+      'fill-pattern': 'bluehatch',
+      'fill-outline-color': 'blue',
+      'fill-opacity': 0.75
     }
   });
 
@@ -155,7 +126,7 @@ map.on('load', function () {
     'type': 'fill',
     'source': {
       type: "geojson",
-      data: "../data/lakes.json"
+      data: "../data/dev/lakes.json"
     },
     'layout': {
       'visibility': 'none'
@@ -167,117 +138,61 @@ map.on('load', function () {
     }
   });
 
-  map.addSource('rivers', {
-    type: "geojson",
-      data: {
-        type: "FeatureCollection",
-        features: []
-      }
-    })
-
-  map.addLayer({
-    'id': 'riversCase',
-    'type': 'line',
-    'source': 'rivers',
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'line-color': 'white',
-      'line-width': 6
-    }
-  });
-
-  map.addLayer({
-    'id': 'rivers',
-    'type': 'line',
-    'source': 'rivers',
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'line-color': 'blue',
-      'line-width': 3
-    }
-  });
-
-  map.addLayer({
-    'id': 'Rail',
-    'type': 'line',
-    'source': {
-      type: "geojson",
-      data: "../data/rail.geojson"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'line-color': {
-        stops: [
-          [0, "black"],
-          [14, "black"],
-          [18, "black"]
-        ]
-      },
-      'line-width': 3
-    }
-  });
+  // map.addLayer({
+  //   'id': 'Rail',
+  //   'type': 'line',
+  //   'source': {
+  //     type: "geojson",
+  //     data: "../data/rail.geojson"
+  //   },
+  //   'layout': {
+  //     'visibility': 'none'
+  //   },
+  //   'paint': {
+  //     'line-color': {
+  //       stops: [
+  //         [0, "black"],
+  //         [14, "black"],
+  //         [18, "black"]
+  //       ]
+  //     },
+  //     'line-width': 3
+  //   }
+  // });
 
   var config = {
     collapsed: false,
+    // Layer order shows up in reverse on page display
     layers: [
-    {
-        id: "counties-outline",
-        hidden: true,
-        parent: 'Counties',
-        group: "Cadastral",
-        directory: "Admin",
+      
+      {
+        id: "2yr Proposed Depth",
+        hidden: false,
+        parent: '2yr Proposed Depth',
+        group: "Depth Extent",
+        directory: "2 Year Storm Event",
         metadata: {
           source: {
-            id: "counties",
+            id: "2yr Proposed Depth",
             type: "geojson",
-            data: "../data/counties.min.geojson"
+            data: "../data/westPark/2yr Proposed Depth.geojson"
           },
           lazyLoading: true
         }
       },
       {
-        id: "Counties",
+        id: "2yr Existing Depth",
         hidden: false,
-        children: true,
-        group: "Cadastral",
-        directory: "Admin",
+        parent: '2yr Existing Depth',
+        group: "Depth Extent",
+        directory: "2 Year Storm Event",
         metadata: {
           source: {
-            id: "counties",
+            id: "2yr Existing Depth",
             type: "geojson",
-            data: "../data/counties.min.geojson"
+            data: "../data/westPark/2yr Existing Depth.geojson"
           },
           lazyLoading: true
-        }
-      },
-      {
-        id: "states-fill",
-        parent: "States",
-        hidden: true,
-        group: "Political",
-        directory: "Admin"
-      },
-      {
-        id: "States",
-        hidden: false,
-        children: true,
-        group: "Political",
-        directory: "Admin",
-        metadata: {
-          filterSchema: {
-            "NAME": {
-              type: "string"
-            },
-            "date_joined_formatted": {
-              type: "date"
-            }
-          }
         }
       },
       {
@@ -286,47 +201,6 @@ map.on('load', function () {
         group: "Hydro",
         directory: "Environment"
       },
-      {
-        id: "riversCase",
-        hidden: true,
-        group: "Hydro",
-        parent: "rivers",
-        directory: "Environment",
-        metadata: {
-          lazyLoading: true,
-          source: {
-            id: "rivers",
-            type: "geojson",
-            data: 'rivers.geojson'
-          },
-        }
-      },
-      {
-        name: "Rivers",
-        id: "rivers",
-        hidden: false,
-        group: "Hydro",
-        children: true,
-        directory: "Environment",
-        metadata: {
-          filterSchema: {
-            "name": {
-              type: "select",
-              options: ["", "Colorado"]
-            },
-            "scalerank": {
-              "type": "number"
-            }
-          },
-          lazyLoading: true
-        }
-      },
-      {
-        id: "Rail",
-        hidden: false,
-        directory: "Cultural",
-        legend: "<icon class='fa fa-minus' style='color:red;'></icon> Legend defined in config<br><icon class='fa fa-minus' style='color:black;'></icon> Toggles when layer is off"
-      }
     ]
   }
 

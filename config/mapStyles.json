@@ -1,5 +1,5 @@
 [{
-    "title": "Default",
+    "title": "Topo",
     "uri":
       "https://api.maptiler.com/maps/topo-v2/style.json?key=G28Wx0TEh00gRJifwBmD"
   },
@@ -19,11 +19,11 @@
       "https://tiles.basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
   },
   {
-    "title": "Positron",
+    "title": "Light",
     "uri":
       "https://tiles.basemaps.cartocdn.com/gl/positron-gl-style/style.json"
   },
   {
-    "title": "Dark Matter",
+    "title": "Dark",
     "uri": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
   }]
