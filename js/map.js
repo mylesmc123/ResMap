@@ -47,7 +47,7 @@ var map = new maplibregl.Map({
   container: 'map',
   style: 'https://api.maptiler.com/maps/hybrid/style.json?key=' + apiKey, // stylesheet location
   center: [-93.290, 30.8597], // starting position [lng, lat]
-  zoom: 16 // starting zoom
+  zoom: 8 // starting zoom
   });
 
 map.addControl(new maplibregl.NavigationControl(), 'top-right');
@@ -61,50 +61,12 @@ map.addControl(new maplibregl.NavigationControl(), 'top-right');
 
 map.addControl(new MapLibreStyleSwitcherControl(styles, apiKey))
 
+// Create a popup, but don't add it to the map yet.
+var popup = new maplibregl.Popup({
+  closeButton: false
+});
+
 map.on('load', function () {
-  map.addSource('maine', {
-    'type': 'geojson',
-    'data': {
-    'type': 'Feature',
-    'geometry': {
-    'type': 'Polygon',
-    'coordinates': [
-    [
-    [-67.13734351262877, 45.137451890638886],
-    [-66.96466, 44.8097],
-    [-68.03252, 44.3252],
-    [-69.06, 43.98],
-    [-70.11617, 43.68405],
-    [-70.64573401557249, 43.090083319667144],
-    [-70.75102474636725, 43.08003225358635],
-    [-70.79761105007827, 43.21973948828747],
-    [-70.98176001655037, 43.36789581966826],
-    [-70.94416541205806, 43.46633942318431],
-    [-71.08482, 45.3052400000002],
-    [-70.6600225491012, 45.46022288673396],
-    [-70.30495378282376, 45.914794623389355],
-    [-70.00014034695016, 46.69317088478567],
-    [-69.23708614772835, 47.44777598732787],
-    [-68.90478084987546, 47.184794623394396],
-    [-68.23430497910454, 47.35462921812177],
-    [-67.79035274928509, 47.066248887716995],
-    [-67.79141211614706, 45.702585354182816],
-    [-67.13734351262877, 45.137451890638886]
-    ]
-    ]
-    }
-    }
-    });
-  map.addLayer({
-    'id': 'maine',
-    'type': 'fill',
-    'source': 'maine',
-    'layout': {},
-    'paint': {
-    'fill-color': '#088',
-    'fill-opacity': 0.8
-    }
-  })
 
   map.addSource('counties', {
     'type': 'geojson',
@@ -368,9 +330,84 @@ map.on('load', function () {
     ]
   }
 
-  // map.addControl(new layerControlGrouped(config));
-
   const layerControl = new layerControlGrouped(config);
   document.querySelector('.sidebar').appendChild(layerControl.onAdd(map));
 
-})
+  // map.addControl(new MaplibreInspect({
+  //   showInspectMap: false,
+  //   showMapPopup: true,
+  //   showInspectButton: false,
+  //   queryParameters: {
+  //     layers: ['Lakes']
+  //   }
+  // }));
+
+  // map.on('mousemove', 'Lakes' function(e) {
+  //   // Change the cursor style as a UI indicator.
+  //   console.log(e.features[0]);
+  //   map.getCanvas().style.cursor = 'pointer';
+
+  //   // Single out the first found feature.
+  //   var feature = e.features[0];
+
+  //   // Display a popup with the name of the county
+  //   popup.setLngLat(e.lngLat)
+  //       .setText(feature.properties.name_en)
+  //       .addTo(map);
+  // });
+
+  // map.on('mouseleave', 'Lakes', function() {
+  //   map.getCanvas().style.cursor = '';
+  //   popup.remove();
+  // });
+  map.on('mousemove', function (e) {
+    var features = map.queryRenderedFeatures(e.point);
+    // console.log(features);
+    // Limit the number of properties we're displaying for
+    // legibility and performance
+    var displayProperties = [
+      'layer',
+      'properties',
+    ];
+    
+    var displayFeatures = features.map(function (feat) {
+      
+      var displayFeat = {};
+      
+      displayProperties.forEach(function (prop) {
+        // console.log(feat);
+        displayFeat[prop] = feat[prop];
+      });
+      
+      return displayFeat;
+    });
+
+    var wantedLayers = ['Lakes'];
+    var wantedPopupData = {};
+    
+    displayFeatures.forEach(function (feature) {
+      
+      if (wantedLayers.includes(feature.layer.id)) {
+        // console.log(feature);
+        wantedPopupData[feature.layer.id] = feature.properties.name_en;
+        // console.log(Object.values(wantedPopupData).length);
+        
+      }
+
+    });
+
+    // Display a popup with the wanted popup data
+    if (Object.values(wantedPopupData).length) {
+      console.log(wantedPopupData);
+      popup.setLngLat(e.lngLat)
+          .setText(JSON.stringify(wantedPopupData).replace(/[{}]/g, '').replace(/"/g, ''))
+          .addTo(map);
+    }
+  }); // end map.on('mousemove')
+
+  map.on('mouseleave', function() {
+    map.getCanvas().style.cursor = '';
+    popup.remove();
+  });
+
+}) // end map.on('load')
