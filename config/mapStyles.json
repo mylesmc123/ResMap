@@ -1,0 +1,29 @@
+[{
+    "title": "Default",
+    "uri":
+      "https://api.maptiler.com/maps/topo-v2/style.json?key=G28Wx0TEh00gRJifwBmD"
+  },
+  {
+    "title": "Satellite",
+    "uri":
+      "https://api.maptiler.com/maps/hybrid/style.json?key=G28Wx0TEh00gRJifwBmD"
+  },
+  {
+    "title": "Toner",
+    "uri":
+      "https://api.maptiler.com/maps/toner-v2/style.json?key=G28Wx0TEh00gRJifwBmD"
+  },
+  {
+    "title": "Voyager",
+    "uri":
+      "https://tiles.basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
+  },
+  {
+    "title": "Positron",
+    "uri":
+      "https://tiles.basemaps.cartocdn.com/gl/positron-gl-style/style.json"
+  },
+  {
+    "title": "Dark Matter",
+    "uri": "https://tiles.basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json"
+  }]
