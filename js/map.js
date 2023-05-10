@@ -87,73 +87,73 @@ map.on('load', function () {
     }
   );
 
-  map.addLayer({
-    'id': '100yr Existing Depth',
-    'type': 'fill',
-    'source': {
-      type: "geojson",
-      data: "../data/westPark/100yr Existing Depth.geojson"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-color': 'orange',
-      'fill-outline-color': 'orange',
-      'fill-opacity': 0.5
-    }
-  });
+  // map.addLayer({
+  //   'id': '100yr Existing Depth',
+  //   'type': 'fill',
+  //   'source': {
+  //     type: "geojson",
+  //     data: "../data/westPark/100yr Existing Depth.geojson"
+  //   },
+  //   'layout': {
+  //     'visibility': 'none'
+  //   },
+  //   'paint': {
+  //     'fill-color': 'orange',
+  //     'fill-outline-color': 'orange',
+  //     'fill-opacity': 0.5
+  //   }
+  // });
 
-  map.addLayer({
-    'id': '100yr Proposed Depth',
-    'type': 'fill',
-    'source': {
-      type: "geojson",
-      data: "../data/westPark/100yr Proposed Depth.geojson"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-pattern': 'bluehatch',
-      'fill-outline-color': 'blue',
-      'fill-opacity': 0.75
-    }
-  });
+  // map.addLayer({
+  //   'id': '100yr Proposed Depth',
+  //   'type': 'fill',
+  //   'source': {
+  //     type: "geojson",
+  //     data: "../data/westPark/100yr Proposed Depth.geojson"
+  //   },
+  //   'layout': {
+  //     'visibility': 'none'
+  //   },
+  //   'paint': {
+  //     'fill-pattern': 'bluehatch',
+  //     'fill-outline-color': 'blue',
+  //     'fill-opacity': 0.75
+  //   }
+  // });
 
-  map.addLayer({
-    'id': '10yr Existing Depth',
-    'type': 'fill',
-    'source': {
-      type: "geojson",
-      data: "../data/westPark/10yr Existing Depth.geojson"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-color': 'orange',
-      'fill-outline-color': 'orange',
-      'fill-opacity': 0.5
-    }
-  });
+  // map.addLayer({
+  //   'id': '10yr Existing Depth',
+  //   'type': 'fill',
+  //   'source': {
+  //     type: "geojson",
+  //     data: "../data/westPark/10yr Existing Depth.geojson"
+  //   },
+  //   'layout': {
+  //     'visibility': 'none'
+  //   },
+  //   'paint': {
+  //     'fill-color': 'orange',
+  //     'fill-outline-color': 'orange',
+  //     'fill-opacity': 0.5
+  //   }
+  // });
 
-  map.addLayer({
-    'id': '10yr Proposed Depth',
-    'type': 'fill',
-    'source': {
-      type: "geojson",
-      data: "../data/westPark/10yr Proposed Depth.geojson"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-pattern': 'bluehatch',
-      'fill-outline-color': 'blue',
-      'fill-opacity': 0.75
-    }
-  });
+  // map.addLayer({
+  //   'id': '10yr Proposed Depth',
+  //   'type': 'fill',
+  //   'source': {
+  //     type: "geojson",
+  //     data: "../data/westPark/10yr Proposed Depth.geojson"
+  //   },
+  //   'layout': {
+  //     'visibility': 'none'
+  //   },
+  //   'paint': {
+  //     'fill-pattern': 'bluehatch',
+  //     'fill-outline-color': 'blue',
+  //     'fill-opacity': 0.75
+  //   }
+  // });
 
   map.addLayer({
     'id': '2yr Existing Depth',
@@ -189,71 +189,105 @@ map.on('load', function () {
     }
   });
 
+  map.addLayer({
+    'id': '2yr Proposed Tooltip',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/tooltip_layers/2yr Proposed_tooltip.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': 'orange',
+      'fill-outline-color': 'orange',
+      'fill-opacity': 0.5
+    }
+  });
+
+  map.addLayer({
+    'id': '2yr Existing Tooltip',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/tooltip_layers/2yr Existing_tooltip.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-pattern': 'bluehatch',
+      'fill-outline-color': 'blue',
+      'fill-opacity': 0.5
+    }
+  });
+
   var config = {
     collapsed: false,
     // Layer order shows up in reverse on page display
     layers: [
       
-      {
-        id: "100yr Proposed Depth",
-        hidden: false,
-        parent: '100yr Proposed Depth',
-        group: "Depth Extent",
-        directory: "100 Year Storm Event",
-        metadata: {
-          source: {
-            id: "100yr Proposed Depth",
-            type: "geojson",
-            data: "../data/westPark/100yr Proposed Depth.geojson"
-          },
-          lazyLoading: true
-        }
-      },
-      {
-        id: "100yr Existing Depth",
-        hidden: false,
-        parent: '100yr Existing Depth',
-        group: "Depth Extent",
-        directory: "100 Year Storm Event",
-        metadata: {
-          source: {
-            id: "100yr Existing Depth",
-            type: "geojson",
-            data: "../data/westPark/100yr Existing Depth.geojson"
-          },
-          lazyLoading: true
-        }
-      },
-      {
-        id: "10yr Proposed Depth",
-        hidden: false,
-        parent: '10yr Proposed Depth',
-        group: "Depth Extent",
-        directory: "10 Year Storm Event",
-        metadata: {
-          source: {
-            id: "10yr Proposed Depth",
-            type: "geojson",
-            data: "../data/westPark/10yr Proposed Depth.geojson"
-          },
-          lazyLoading: true
-        }
-      },
-      {
-        id: "10yr Existing Depth",
-        hidden: false,
-        parent: '10yr Existing Depth',
-        group: "Depth Extent",
-        directory: "10 Year Storm Event",
-        metadata: {
-          source: {
-            id: "10yr Existing Depth",
-            type: "geojson",
-            data: "../data/westPark/10yr Existing Depth.geojson"
-          },
-          lazyLoading: true
-        }
-      },
+      // {
+      //   id: "100yr Proposed Depth",
+      //   hidden: false,
+      //   parent: '100yr Proposed Depth',
+      //   group: "Depth Extent",
+      //   directory: "100 Year Storm Event",
+      //   metadata: {
+      //     source: {
+      //       id: "100yr Proposed Depth",
+      //       type: "geojson",
+      //       data: "../data/westPark/100yr Proposed Depth.geojson"
+      //     },
+      //     lazyLoading: true
+      //   }
+      // },
+      // {
+      //   id: "100yr Existing Depth",
+      //   hidden: false,
+      //   parent: '100yr Existing Depth',
+      //   group: "Depth Extent",
+      //   directory: "100 Year Storm Event",
+      //   metadata: {
+      //     source: {
+      //       id: "100yr Existing Depth",
+      //       type: "geojson",
+      //       data: "../data/westPark/100yr Existing Depth.geojson"
+      //     },
+      //     lazyLoading: true
+      //   }
+      // },
+      // {
+      //   id: "10yr Proposed Depth",
+      //   hidden: false,
+      //   parent: '10yr Proposed Depth',
+      //   group: "Depth Extent",
+      //   directory: "10 Year Storm Event",
+      //   metadata: {
+      //     source: {
+      //       id: "10yr Proposed Depth",
+      //       type: "geojson",
+      //       data: "../data/westPark/10yr Proposed Depth.geojson"
+      //     },
+      //     lazyLoading: true
+      //   }
+      // },
+      // {
+      //   id: "10yr Existing Depth",
+      //   hidden: false,
+      //   parent: '10yr Existing Depth',
+      //   group: "Depth Extent",
+      //   directory: "10 Year Storm Event",
+      //   metadata: {
+      //     source: {
+      //       id: "10yr Existing Depth",
+      //       type: "geojson",
+      //       data: "../data/westPark/10yr Existing Depth.geojson"
+      //     },
+      //     lazyLoading: true
+      //   }
+      // },
       {
         id: "2yr Proposed Depth",
         hidden: false,
@@ -280,6 +314,37 @@ map.on('load', function () {
             id: "2yr Existing Depth",
             type: "geojson",
             data: "../data/westPark/2yr Existing Depth.geojson"
+          },
+          lazyLoading: true
+        }
+      },
+      
+      {
+        id: "2yr Proposed Tooltip",
+        hidden: false,
+        parent: '2yr Proposed Tooltip',
+        group: "Depth Extent",
+        directory: "2 Year Storm Event",
+        metadata: {
+          source: {
+            id: "2yr Proposed Tooltip",
+            type: "geojson",
+            data: "../data/westPark/tooltip_layers/2yr Proposed_tooltip.geojson"
+          },
+          lazyLoading: true
+        }
+      },
+      {
+        id: "2yr Existing Tooltip",
+        hidden: false,
+        parent: '2yr Existing Tooltip',
+        group: "Depth Extent",
+        directory: "2 Year Storm Event",
+        metadata: {
+          source: {
+            id: "2yr Existing Tooltip",
+            type: "geojson",
+            data: "../data/westPark/tooltip_layers/2yr Existing_tooltip.geojson"
           },
           lazyLoading: true
         }
@@ -332,21 +397,26 @@ map.on('load', function () {
       var displayFeat = {};
       
       displayProperties.forEach(function (prop) {
-        console.log(feat);
+        // console.log(feat);
         displayFeat[prop] = feat[prop];
       });
       
       return displayFeat;
     });
 
-    var wantedLayers = ['2yr Proposed Depth', '2yr Existing Depth', '10yr Proposed Depth', '10yr Existing Depth', '100yr Proposed Depth', '100yr Existing Depth'];
+    var wantedLayers = ['2yr Proposed Tooltip', '2yr Existing Tooltip'];
+    // var wantedLayers = [];
     var wantedPopupData = {};
     
     displayFeatures.forEach(function (feature) {
       
       if (wantedLayers.includes(feature.layer.id)) {
         // console.log(feature);
-        wantedPopupData[feature.layer.id] = feature.properties.Area;
+        wantedPopupData[feature.layer.id] = {
+          'WSE':feature.properties.wse_max,
+          'Depth':feature.properties.depth_max,
+          'Elevation':feature.properties.min_elev,
+        }
         // console.log(Object.values(wantedPopupData).length);
         
       }
@@ -355,9 +425,22 @@ map.on('load', function () {
 
     // Display a popup with the wanted popup data
     if (Object.values(wantedPopupData).length) {
-      console.log(wantedPopupData);
+      // console.log(wantedPopupData);
+      var popuptext = ''
+      Object.entries(wantedPopupData).forEach(entry => {
+        const [key, value] = entry;
+        // console.log(key, value);
+        popuptext = popuptext.concat(`<b>${key}</b><br>Depth: ${value.Depth}<br>WSE: ${value.WSE}<br>Elevation: ${value.Elevation}<br><br>`)
+        // console.log(popuptext);
+      });
       popup.setLngLat(e.lngLat)
-          .setText(JSON.stringify(wantedPopupData).replace(/[{}]/g, '').replace(/"/g, ''))
+          // .setText(JSON.stringify(wantedPopupData).replace(/[{}]/g, '').replace(/"/g, ''))
+          .setHTML(popuptext
+          )
+            // wantedPopupData.forEach(function (feature) {
+            //   '<b>WSE: </b>' + wantedPopupData[Object.keys(wantedPopupData)[feature]].WSE + '<br> <b>Depth: </b>' + wantedPopupData[Object.keys(wantedPopupData)[feature]].Depth + '<br> <b>Elevation: </b>' + wantedPopupData[Object.keys(wantedPopupData)[feature]].Elevation
+            // })
+          // ) 
           .addTo(map);
     }
   }); // end map.on('mousemove')
