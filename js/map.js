@@ -88,6 +88,74 @@ map.on('load', function () {
   );
 
   map.addLayer({
+    'id': '100yr Existing Depth',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/100yr Existing Depth.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': 'orange',
+      'fill-outline-color': 'orange',
+      'fill-opacity': 0.5
+    }
+  });
+
+  map.addLayer({
+    'id': '100yr Proposed Depth',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/100yr Proposed Depth.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-pattern': 'bluehatch',
+      'fill-outline-color': 'blue',
+      'fill-opacity': 0.75
+    }
+  });
+
+  map.addLayer({
+    'id': '10yr Existing Depth',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/10yr Existing Depth.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-color': 'orange',
+      'fill-outline-color': 'orange',
+      'fill-opacity': 0.5
+    }
+  });
+
+  map.addLayer({
+    'id': '10yr Proposed Depth',
+    'type': 'fill',
+    'source': {
+      type: "geojson",
+      data: "../data/westPark/10yr Proposed Depth.geojson"
+    },
+    'layout': {
+      'visibility': 'none'
+    },
+    'paint': {
+      'fill-pattern': 'bluehatch',
+      'fill-outline-color': 'blue',
+      'fill-opacity': 0.75
+    }
+  });
+
+  map.addLayer({
     'id': '2yr Existing Depth',
     'type': 'fill',
     'source': {
@@ -121,50 +189,71 @@ map.on('load', function () {
     }
   });
 
-  map.addLayer({
-    'id': 'Lakes',
-    'type': 'fill',
-    'source': {
-      type: "geojson",
-      data: "../data/dev/lakes.json"
-    },
-    'layout': {
-      'visibility': 'none'
-    },
-    'paint': {
-      'fill-color': 'blue',
-      'fill-outline-color': 'white',
-      'fill-opacity': 0.9
-    }
-  });
-
-  // map.addLayer({
-  //   'id': 'Rail',
-  //   'type': 'line',
-  //   'source': {
-  //     type: "geojson",
-  //     data: "../data/rail.geojson"
-  //   },
-  //   'layout': {
-  //     'visibility': 'none'
-  //   },
-  //   'paint': {
-  //     'line-color': {
-  //       stops: [
-  //         [0, "black"],
-  //         [14, "black"],
-  //         [18, "black"]
-  //       ]
-  //     },
-  //     'line-width': 3
-  //   }
-  // });
-
   var config = {
     collapsed: false,
     // Layer order shows up in reverse on page display
     layers: [
       
+      {
+        id: "100yr Proposed Depth",
+        hidden: false,
+        parent: '100yr Proposed Depth',
+        group: "Depth Extent",
+        directory: "100 Year Storm Event",
+        metadata: {
+          source: {
+            id: "100yr Proposed Depth",
+            type: "geojson",
+            data: "../data/westPark/100yr Proposed Depth.geojson"
+          },
+          lazyLoading: true
+        }
+      },
+      {
+        id: "100yr Existing Depth",
+        hidden: false,
+        parent: '100yr Existing Depth',
+        group: "Depth Extent",
+        directory: "100 Year Storm Event",
+        metadata: {
+          source: {
+            id: "100yr Existing Depth",
+            type: "geojson",
+            data: "../data/westPark/100yr Existing Depth.geojson"
+          },
+          lazyLoading: true
+        }
+      },
+      {
+        id: "10yr Proposed Depth",
+        hidden: false,
+        parent: '10yr Proposed Depth',
+        group: "Depth Extent",
+        directory: "10 Year Storm Event",
+        metadata: {
+          source: {
+            id: "10yr Proposed Depth",
+            type: "geojson",
+            data: "../data/westPark/10yr Proposed Depth.geojson"
+          },
+          lazyLoading: true
+        }
+      },
+      {
+        id: "10yr Existing Depth",
+        hidden: false,
+        parent: '10yr Existing Depth',
+        group: "Depth Extent",
+        directory: "10 Year Storm Event",
+        metadata: {
+          source: {
+            id: "10yr Existing Depth",
+            type: "geojson",
+            data: "../data/westPark/10yr Existing Depth.geojson"
+          },
+          lazyLoading: true
+        }
+      },
       {
         id: "2yr Proposed Depth",
         hidden: false,
@@ -194,12 +283,6 @@ map.on('load', function () {
           },
           lazyLoading: true
         }
-      },
-      {
-        id: "Lakes",
-        hidden: false,
-        group: "Hydro",
-        directory: "Environment"
       },
     ]
   }
@@ -249,21 +332,21 @@ map.on('load', function () {
       var displayFeat = {};
       
       displayProperties.forEach(function (prop) {
-        // console.log(feat);
+        console.log(feat);
         displayFeat[prop] = feat[prop];
       });
       
       return displayFeat;
     });
 
-    var wantedLayers = ['Lakes'];
+    var wantedLayers = ['2yr Proposed Depth', '2yr Existing Depth', '10yr Proposed Depth', '10yr Existing Depth', '100yr Proposed Depth', '100yr Existing Depth'];
     var wantedPopupData = {};
     
     displayFeatures.forEach(function (feature) {
       
       if (wantedLayers.includes(feature.layer.id)) {
         // console.log(feature);
-        wantedPopupData[feature.layer.id] = feature.properties.name_en;
+        wantedPopupData[feature.layer.id] = feature.properties.Area;
         // console.log(Object.values(wantedPopupData).length);
         
       }
