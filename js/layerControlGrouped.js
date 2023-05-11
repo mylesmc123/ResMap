@@ -8,10 +8,12 @@
 
 import * as domHelper from "./lib/domHelpers.js";
 import * as mglHelper from "./lib/mglHelpers.js";
+import * as legendToggle from "./legendToggle.js";
 
 export default class layerControlGrouped {
 
-  constructor(options) {
+  constructor(options, wantedLayers) {
+    // console.log(wantedLayers);
     options = (!options) ? {} : options;
 
     this._collapsed = false;
@@ -84,6 +86,7 @@ export default class layerControlGrouped {
     })
 
     this._layerControlConfig = config
+    this._wantedLayers = wantedLayers
 
     // this._layers.forEach(l => {
     //   Object.keys(l).map(k => {
@@ -127,6 +130,8 @@ export default class layerControlGrouped {
     // SETUP MAIN MAPBOX CONTROL
     this._div = lcCreateButton(this._collapsed);
 
+    var wantedLayers = this._wantedLayers;
+
     // GET THE MAP LAYERS AND LAYER IDS AND SET TO VISIBLE ANY LAYER IDS IN THE QUERY PARAMS, AND ADD THEM TO THE QUERY PARAMS IF MISSING
     const activeLayers = mglHelper.GetActiveLayers(this._map, this._layers);
 
@@ -165,6 +170,7 @@ export default class layerControlGrouped {
           var checked = mglHelper.GetLayerVisibility(this._mapLayers, this._mapLayerIds, l.id);
           if (checked) {
             layerCount = layerCount + 1
+            // console.log(layerCount);
           }
         }
       })
@@ -181,6 +187,7 @@ export default class layerControlGrouped {
         // CREATE INDIVIDUAL LAYER TOGGLES
         for (let l = 0; l < groupLayers.length; l++) {
           let layer = groupLayers[l];
+          console.log(layer);
           let style = mglHelper.GetStyle(this._mapLayers, layer);
           if (!layer.legend && style) {
             layer.simpleLegend = lcCreateLegend(style)
@@ -233,6 +240,12 @@ export default class layerControlGrouped {
 
       if (e.target.dataset.mapLayer) {
         mglHelper.SetLayerVisibility(map, e.target.checked, e.target.id);
+        // yers = mglHelper.GetActiveLayers(this._map, this._layers)
+        // console.log(map.getStyle().layers);
+        // console.log(wantedLayers);
+        // event_checked = mglHelper.GetLayerVisibility(this._mapLayers, this._mapLayerIds, e.target.dataset.mapLayer)
+        legendToggle.ToggleLegend(e.target, map, wantedLayers)
+        
         if (e.target.dataset.children) {
           let children = document.querySelectorAll("[data-parent]");
           for (let i = 0; i < children.length; i++) {

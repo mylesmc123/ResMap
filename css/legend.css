@@ -1,0 +1,18 @@
+#legends {
+    background-color: rgba(255, 255, 255, 0.748);
+    box-shadow: 0 4px 4px 4px rgba(0,0,0,0.05);
+    /* visibility: hidden;  */
+    display: none;
+    width: fit-content;
+    position: fixed;
+    bottom: 60;
+    right: 20;
+    height: fit-content;
+    z-index: 100;
+    
+  }
+
+  /* .column {
+    float: left;
+    width: 50%;
+    } */
