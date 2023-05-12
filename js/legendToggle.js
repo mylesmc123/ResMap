@@ -34,7 +34,8 @@ function ToggleLegend(target, map, wantedLayers) {
             // create a proposed legend div
             var legend_proposed = document.createElement("div")
             legend_proposed.setAttribute("id","legend-proposed")
-            legend_proposed.setAttribute("style","width: 50%;float: left;padding: 2px;margin: 1px")
+            // legend_proposed.setAttribute("style","width: 50%;float: left;padding: 2px;margin: 1px")
+            legend_proposed.setAttribute("class","column")
             document.getElementById("legends").appendChild(legend_proposed);
             console.log(document.getElementById("legends"));
 
@@ -56,20 +57,20 @@ function ToggleLegend(target, map, wantedLayers) {
             // // create color ramp
             var ramp = document.createElement("dl",{"id":"legendTable-proposed","style":"width: 86px;background: #fff;border: 1px solid #000;padding: 50px 10px;line-height:0px;border-radius:10px;margin-top:10px;"});
             ramp.innerHTML =
-                `<dt style="background:#AB2706;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[0]}</dd><br>` +
-                `<dt style="background:#C3411C;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[1]}</dd><br>` +
-                `<dt style="background:#DB5C32;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[2]}</dd><br>` +
-                `<dt style="background:#F37748;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[3]}</dd><br>` +
-                `<dt style="background:#FFF70F;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[4]}</dd><br>`;
+                `<dt class="row" style="background:#AB2706;display: inline-block;width:16px;height:16px;"></dt>` +
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[0]}</dd><br>` +
+                `<dt class="row" style="background:#C3411C;display: inline-block;width:16px;height:16px;"></dt>` +
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[1]}</dd><br>` +
+                `<dt class="row" style="background:#DB5C32;display: inline-block;width:16px;height:16px;"></dt>` +
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[2]}</dd><br>` +
+                `<dt class="row" style="background:#F37748;display: inline-block;width:16px;height:16px;"></dt>` +
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[3]}</dd><br>` +
+                `<dt class="row" style="background:#FFF70F;display: inline-block;width:16px;height:16px;"></dt>` +
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">${rampValues[4]}</dd><br>`;
 
             // create header
             var header = document.createElement("h4",{"style":"textAlign: center"});
-            header.textContent = target.id;
+            header.textContent = `${target.id} Depth (ft)`;
             document.getElementById("legend-proposed").appendChild(header);
             document.getElementById("legend-proposed").appendChild(ramp);
 
@@ -92,7 +93,8 @@ function ToggleLegend(target, map, wantedLayers) {
             // create a existing legend div
             var legend_existing = document.createElement("div")
             legend_existing.setAttribute("id","legend-existing")
-            legend_existing.setAttribute("style","width: 50%;float: left;padding: 2px;margin: 1px")
+            legend_existing.setAttribute("class","column")
+            // legend_existing.setAttribute("style","width: 50%;float: left;padding: 2px;margin: 1px")
             document.getElementById("legends").appendChild(legend_existing);
 
             var max = getMax(data, "depth_max")
@@ -109,16 +111,14 @@ function ToggleLegend(target, map, wantedLayers) {
             // // create color ramp
             var ramp = document.createElement("dl",{"id":"legendTable-existing","style":"width: 86px;background: #fff;border: 1px solid #000;padding: 50px;line-height:0px;border-radius:10px;margin-top:10px;"});
             ramp.innerHTML =
-                `<dt style="background:#document.getElementById("legend-proposed").innerHTML = "";
-        document.getElementById("legend-proposed").style.display = "none";;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">Max: ${rampValues[0]}</dd><br>` +
-                `<dt style="background:#3E6CCE;display: inline-block;width:20px;height:14px;"></dt>` +
-                `<dd style="display: inline-block;font-size:16px;margin-bottom:0;">Min: ${rampValues[1]}</dd><br>` +
-                `<dt style="background:#3E6CCE;display: inline-block;width:20px;height:14px;"></dt>`
+                `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0">Max: ${rampValues[0]} - Min: ${rampValues[1]}</dd>` +
+                `<dd class="row" style="background:#3E6CCE;display: inline-block;width:16px;height:16px;margin-right:4px"></dt>`
+                // `<dd class="row" style="display: inline-block;font-size:16px;margin-bottom:0;">Min: ${rampValues[1]}</dd>` +
+                // `<dd class="row" style="background:#3E6CCE;display: inline-block;width:16px;height:16px;"></dt>`
 
             // create header
             var header = document.createElement("h4",{"style":"textAlign: center"});
-            header.textContent = target.id;
+            header.textContent = `${target.id} Depth (ft)`;
             document.getElementById("legend-existing").appendChild(header);
             document.getElementById("legend-existing").appendChild(ramp);
 

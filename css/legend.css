@@ -12,6 +12,12 @@
     
   }
 
+  .column {
+    flex: 50%;
+    }
+  .row {
+    display: flex;
+  }
   /* .column {
     float: left;
     width: 50%;
