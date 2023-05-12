@@ -37,7 +37,7 @@ function ToggleLegend(target, map, wantedLayers) {
             // legend_proposed.setAttribute("style","width: 50%;float: left;padding: 2px;margin: 1px")
             legend_proposed.setAttribute("class","column")
             document.getElementById("legends").appendChild(legend_proposed);
-            console.log(document.getElementById("legends"));
+            // console.log(document.getElementById("legends"));
 
             // console.log(data);
             var max = getMax(data, "depth_max")
@@ -125,7 +125,7 @@ function ToggleLegend(target, map, wantedLayers) {
             // turns on legends
             document.getElementById("legends").style.display = "block";
             document.getElementById("legend-existing").style.display = "block";
-            console.log(document.getElementById("legends"));
+            // console.log(document.getElementById("legends"));
         });
     //Toggle off
     } else if (target.id.includes("Proposed") && target.checked == false) {

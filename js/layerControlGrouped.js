@@ -187,7 +187,7 @@ export default class layerControlGrouped {
         // CREATE INDIVIDUAL LAYER TOGGLES
         for (let l = 0; l < groupLayers.length; l++) {
           let layer = groupLayers[l];
-          console.log(layer);
+          // console.log(layer);
           let style = mglHelper.GetStyle(this._mapLayers, layer);
           if (!layer.legend && style) {
             layer.simpleLegend = lcCreateLegend(style)
