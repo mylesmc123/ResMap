@@ -1,0 +1,42 @@
+.timeseriespanel {
+    background-color: white;
+    box-shadow: 0 4px 4px 4px rgba(0,0,0,0.05);
+    display: flex;
+    width: 100%;
+    position: absolute;
+    bottom: 2px;
+    height: fit-content;
+    z-index: 4;
+    visibility: hidden;
+  }
+  /* h1 {
+    font-size: 1.2rem;
+    margin: 0.3rem;
+    } */
+
+  /* Position and style the close button (top right corner) */
+/* .timeseries .closebtn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  } */
+  
+  /* The button used to open the timeseries */
+  .timeseriestogglebutton {
+    font-size: 20px;
+    display: flex;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    top: 60px;
+    visibility: visible;
+    z-index: 1;
+  }
+  
+  .timeseriestogglebutton:hover {
+    background-color: #444;
+  }

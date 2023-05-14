@@ -413,29 +413,35 @@ map.on('load', function () {
   // When a click event occurs on a feature in the places layer, open a popup at the
   // location of the feature, with description HTML from its properties.
   map.on('click', 'timeseries', function (e) {
-  var coordinates = e.features[0].geometry.coordinates.slice();
-  var name = e.features[0].properties.Name;
-    
-  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-  }
-  console.log(coordinates);
-  new maplibregl.Popup()
-  .setLngLat(coordinates)
-  // add div to DOM before creating plotly plot
-  .setHTML('<div id="plotlyPlot"/>')
-  .addTo(map);
-  
-  // create plot
-  var data = [
-    {
-      x: ['2013-10-04 22:23:00', '2013-11-04 22:23:00', '2013-12-04 22:23:00'],
-      y: [1, 3, 6],
-      type: 'scatter'
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var name = e.features[0].properties.Name;
+      
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
-  ];
 
-  Plotly.newPlot('plotlyPlot', data)
+    // console.log(coordinates);
+    
+    // Setup Popup
+    new maplibregl.Popup()
+    .setLngLat(coordinates)
+    // add div to DOM before creating plotly plot
+    .setHTML('<div id="plotlyPlot"/>')
+    .addTo(map);
+    
+    // create plot
+    // TODO pull from json by gage name
+    var data = [
+      {
+        x: ['2013-10-04 22:23:00', '2013-11-04 22:23:00', '2013-12-04 22:23:00'],
+        y: [1, 3, 6],
+        type: 'scatter'
+      }
+    ];
+
+    Plotly.newPlot('plotlyPlot', data)
+
+    // Open a panel
   });
 
   // Store all added markers to be able remove them later
