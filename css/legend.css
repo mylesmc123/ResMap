@@ -4,11 +4,11 @@
     /* visibility: hidden;  */
     display: none;
     width: fit-content;
-    position: fixed;
-    bottom: 60;
-    right: 20;
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
     height: fit-content;
-    z-index: 100;
+    z-index: 4;
     
   }
 
@@ -18,7 +18,3 @@
   .row {
     display: flex;
   }
-  /* .column {
-    float: left;
-    width: 50%;
-    } */
