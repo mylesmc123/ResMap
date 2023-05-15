@@ -413,41 +413,81 @@ map.on('load', function () {
   // When a click event occurs on a feature in the places layer, open a popup at the
   // location of the feature, with description HTML from its properties.
   map.on('click', 'timeseries', function (e) {
-  var coordinates = e.features[0].geometry.coordinates.slice();
-  var name = e.features[0].properties.Name;
+    var coordinates = e.features[0].geometry.coordinates.slice();
+    var name = e.features[0].properties.Name;
+      
+    while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    }
+    console.log(coordinates);
+    new maplibregl.Popup()
+    .setLngLat(coordinates)
+    // add div to DOM before creating plotly plot
+    .setHTML('<div id="plotlyPlot"/>')
+    .addTo(map);
     
-  while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-  coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-  }
-  console.log(coordinates);
-  new maplibregl.Popup()
-  .setLngLat(coordinates)
-  // add div to DOM before creating plotly plot
-  .setHTML('<div id="plotlyPlot"/>')
-  .addTo(map);
-  
-  // get timeseries json data
-  fetch(`../data/westPark/timeseries/${name} timeseries.json`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data[5])
-    var values = data.map(d => d.values);
-    var times = data.map(d => d.datetime);
-    console.log(times);
-    // create plot
-    var data = [
-      {
-        x: times,
-        y: values,
-        type: 'scatter'
-      }
-    ];
-    Plotly.newPlot('plotlyPlot', data)
-  });
-  
+    // get timeseries json data
+    fetch(`../data/westPark/timeseries/timeseries.json`)
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data)
+      // console.log(Object.keys(data));
+      // for each event, create plotly trace
+      var tracedata = [];
+      Object.keys(data).forEach(key => {
+        // console.log(key, data[key]);
+        var values = data[key][name].map(d => d.values);
+        var times = data[key][name].map(d => d.datetime);
+        // console.log(times);
+        var trace =
+          {
+            x: times,
+            y: values,
+            yaxis: 'WSE (ft)',
+            type: 'scatter',
+            name: key
+          }
+        ;
+        tracedata.push(trace)
+      });
+      // console.log(tracedata);
+      var layout = {
+        title: {
+          text: name,
+          xref: 'paper',
+          x: 0.05,
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            },
+        },
+        yaxis: {
+          title: {
+            text: 'WSE (ft)',
+          }
+        }
+      };
+      Plotly.newPlot('plotlyPlot', tracedata, layout);
 
- 
+      // });
+    
+    // var values = data.map(d => d.values);
+    // var times = data.map(d => d.datetime);
+    // console.log(times);
+    // // create plot
+    // var data = [
+    //   {
+    //     x: times,
+    //     y: values,
+    //     type: 'scatter'
+    //   }
+    // ];
+    
+    });
+
   });
+
 
   // Store all added markers to be able remove them later
   // var marker_list = [];
