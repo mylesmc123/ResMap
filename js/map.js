@@ -426,16 +426,27 @@ map.on('load', function () {
   .setHTML('<div id="plotlyPlot"/>')
   .addTo(map);
   
-  // create plot
-  var data = [
-    {
-      x: ['2013-10-04 22:23:00', '2013-11-04 22:23:00', '2013-12-04 22:23:00'],
-      y: [1, 3, 6],
-      type: 'scatter'
-    }
-  ];
+  // get timeseries json data
+  fetch(`../data/westPark/timeseries/${name} timeseries.json`)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data[5])
+    var values = data.map(d => d.values);
+    var times = data.map(d => d.datetime);
+    console.log(times);
+    // create plot
+    var data = [
+      {
+        x: times,
+        y: values,
+        type: 'scatter'
+      }
+    ];
+    Plotly.newPlot('plotlyPlot', data)
+  });
+  
 
-  Plotly.newPlot('plotlyPlot', data)
+ 
   });
 
   // Store all added markers to be able remove them later
