@@ -136,7 +136,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
   map.addLayer({
@@ -178,7 +178,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
 
@@ -221,7 +221,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
 
