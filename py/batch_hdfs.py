@@ -1,8 +1,12 @@
+import datetime
+
+import numpy as np
 import ras_output_wse_timeseries
 import pandas as pd
 import geopandas as gpd
 import os
 from types import SimpleNamespace
+import xarray as xr
 
 df = pd.read_csv(r'Z:\js\ResMap\py\hdf_paths.csv', sep=',', header=0)
 data_dir = r'Z:\js\ResMap\data\westPark'
@@ -52,4 +56,34 @@ for index, row in df.iterrows():
 
     # Create tooltip geoJson
     print ('Processing tooltip layer to geoJson.')
-    make_tooltip_file(args)
+    # make_tooltip_file(args)
+
+    # Create timeseries json
+    print ('Processing timeseries to json.')
+    
+    #  Open points csv
+    points_csv = pd.read_csv(args.points)
+
+    # open nc file
+    nc_file = os.path.join(args.postprocessingdirectory, args.forecastname, args.output)
+    ds = xr.open_dataset(nc_file, decode_cf=False)
+
+    # Create dataframes for times, values. Then , export Json.
+    times = ds['time'].values
+    for station in range(len(ds['values'])):
+        
+        #  Read point names from csv
+        name = points_csv[points_csv['point_id'] == ds['point_id'][station].values].point_name.values[0]
+    
+        values = ds['values'][station].values
+
+        # Create dataframe for times, values
+        df = pd.DataFrame({'time': times, 'values': values})
+        # From epoch time to date times, but need datetime function because year 3000 outside np.to_datetime range.
+        df['datetime'] = df['time'].apply(lambda x: datetime.datetime.fromtimestamp(x).strftime('%Y-%m-%d %H:%M:%S'))
+        df.drop(columns=['time'], inplace=True)
+        df['values'].replace({-9999.0:np.NaN}, inplace=True)
+        
+        # convert to json
+        json_file = os.path.join(args.datadirectory, 'timeseries', f'{name} timeseries.json')
+        df.to_json(json_file, orient='records')
