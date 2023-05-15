@@ -62,11 +62,11 @@ for index, row in df.iterrows():
     # Create ras_wse.shp and timeseries.nc
     print (f'\nProcessing {forecast}.')
     print ('Processing wse shp.')
-    # ras_output_wse_timeseries.ras_output(args)
+    ras_output_wse_timeseries.ras_output(args)
 
     # Create tooltip geoJson
     print ('Processing tooltip layer to geoJson.')
-    # make_tooltip_file(args)
+    make_tooltip_file(args)
 
     # Create timeseries json
     print ('Processing timeseries to json.')
@@ -95,13 +95,10 @@ for index, row in df.iterrows():
         df.drop(columns=['time'], inplace=True)
         df['values'].replace({-9999.0:np.NaN}, inplace=True)
         
-        # convert to json
-        
-        # json_file = os.path.join(args.datadirectory, 'timeseries', f'{point_} timeseries.json')
-        # df.to_json(json_file, orient='records')
+        # convert dataframe to dictionary then append to timeseries json
         df = df.replace(np.nan, None)
         df_dict = df.to_dict('records')
-        # print (df_dict)
+
         event_timeseries_dict[args.forecast][point_name] = df_dict
 
 # print(event_timeseries_dict)
