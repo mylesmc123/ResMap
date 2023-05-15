@@ -52,11 +52,11 @@ for index, row in df.iterrows():
     # Create ras_wse.shp and timeseries.nc
     print (f'\nProcessing {forecastName}.')
     print ('Processing wse shp.')
-    # ras_output_wse_timeseries.ras_output(args)
+    ras_output_wse_timeseries.ras_output(args)
 
     # Create tooltip geoJson
     print ('Processing tooltip layer to geoJson.')
-    # make_tooltip_file(args)
+    make_tooltip_file(args)
 
     # Create timeseries json
     print ('Processing timeseries to json.')
@@ -85,5 +85,7 @@ for index, row in df.iterrows():
         df['values'].replace({-9999.0:np.NaN}, inplace=True)
         
         # convert to json
+        if not os.path.exists(os.path.join(args.datadirectory, 'timeseries')):
+            os.mkdir(os.path.join(args.datadirectory, 'timeseries'))
         json_file = os.path.join(args.datadirectory, 'timeseries', f'{name} timeseries.json')
         df.to_json(json_file, orient='records')
