@@ -15,7 +15,7 @@ def ras_output(args):
     # hdf_filename = r"Z:\SLaMM_Mar2022\SLaMM_2021.p06.hdf"
     # hdf_filename = input
     curr_date = time.strftime("%Y%m%d_%H")
-    home_dir = os.path.join(args.postprocessingdirectory,args.forecastname)
+    home_dir = os.path.join(args.postprocessingdirectory,args.forecast)
     tempDir = os.path.join(home_dir,"tempfiles")
     postp_area = os.path.join(args.postprocessingdirectory, "postp_area.shp")
     output_nc = os.path.join(home_dir,args.output)

@@ -136,7 +136,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
   map.addLayer({
@@ -178,7 +178,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
 
@@ -221,7 +221,7 @@ map.on('load', function () {
     'paint': {
       'fill-pattern': 'bluehatch',
       'fill-outline-color': 'blue',
-      'fill-opacity': 0.5
+      'fill-opacity': 0.4
     }
   });
 
@@ -415,33 +415,79 @@ map.on('load', function () {
   map.on('click', 'timeseries', function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var name = e.features[0].properties.Name;
+      
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
-
-    // console.log(coordinates);
-    
-    // Setup Popup
+    console.log(coordinates);
     new maplibregl.Popup()
     .setLngLat(coordinates)
     // add div to DOM before creating plotly plot
     .setHTML('<div id="plotlyPlot"/>')
     .addTo(map);
     
-    // create plot
-    // TODO pull from json by gage name
-    var data = [
-      {
-        x: ['2013-10-04 22:23:00', '2013-11-04 22:23:00', '2013-12-04 22:23:00'],
-        y: [1, 3, 6],
-        type: 'scatter'
-      }
-    ];
+    // get timeseries json data
+    fetch(`../data/westPark/timeseries/timeseries.json`)
+    .then(response => response.json())
+    .then(data => {
+      // console.log(data)
+      // console.log(Object.keys(data));
+      // for each event, create plotly trace
+      var tracedata = [];
+      Object.keys(data).forEach(key => {
+        // console.log(key, data[key]);
+        var values = data[key][name].map(d => d.values);
+        var times = data[key][name].map(d => d.datetime);
+        // console.log(times);
+        var trace =
+          {
+            x: times,
+            y: values,
+            yaxis: 'WSE (ft)',
+            type: 'scatter',
+            name: key
+          }
+        ;
+        tracedata.push(trace)
+      });
+      // console.log(tracedata);
+      var layout = {
+        title: {
+          text: name,
+          xref: 'paper',
+          x: 0.05,
+        },
+        xaxis: {
+          title: {
+            text: 'Date',
+            },
+        },
+        yaxis: {
+          title: {
+            text: 'WSE (ft)',
+          }
+        }
+      };
+      Plotly.newPlot('plotlyPlot', tracedata, layout);
 
-    Plotly.newPlot('plotlyPlot', data)
+      // });
+    
+    // var values = data.map(d => d.values);
+    // var times = data.map(d => d.datetime);
+    // console.log(times);
+    // // create plot
+    // var data = [
+    //   {
+    //     x: times,
+    //     y: values,
+    //     type: 'scatter'
+    //   }
+    // ];
+    
+    });
 
-    // Open a panel
   });
+
 
   // Store all added markers to be able remove them later
   // var marker_list = [];

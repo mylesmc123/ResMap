@@ -68,16 +68,34 @@ def wse_shp_to_nc(poly_wse_shp, stations_locations_txt, hdf_filename, output_nc)
     startTime = datetime.strptime(hdf_startTime, '%d%b%Y %H:%M:%S')
     timesList = []
 
-    if hdf_interval == '1HOUR':
+    if 'HOUR' in hdf_interval:
+        hour_int = int(hdf_interval.split('HOUR')[0])
         # Convert Interval from hours to days (1hr / 24hr / 1day)
-        interval = 1/24
+        # interval = hour_int/24
         t = datetime.strptime(hdf_startTime, '%d%b%Y %H:%M:%S')
         # append startTime to timeList then loop through timesteps to create full timesList
         timesList.append(t.timestamp())
-        
         for step in range(timesteps-1):
-            t = t + timedelta(hours = 1)
+            t = t + timedelta(hours = hour_int)
             timesList.append(t.timestamp())
+    
+    elif 'MIN' in hdf_interval:
+        print (hdf_interval)
+        minute_int = int(hdf_interval.split('MIN')[0])
+        t = datetime.strptime(hdf_startTime, '%d%b%Y %H:%M:%S')
+        # append startTime to timeList then loop through timesteps to create full timesList
+        timesList.append(t.timestamp())
+        for step in range(timesteps-1):
+            t = t + timedelta(minutes = minute_int)
+            timesList.append(t.timestamp())
+    else :
+        print ('Interval is not in hours or minutes. Check hdf file.')
+
+    # subset nearest wse gdf to only the values columns and aggregate to new dataframe for adding the values to the netcdf
+    nearest_gdf_values_subset = nearest_gdf.drop(columns=['Area2D', 'Cell_Index', 'Easting', 'Northing', 'dist', 'geometry',
+       'min_elev', 'point_id', 'point_name', 'type', 'wse_max', 'x', 'y'])
+    # nearest_values_df = nearest_gdf_values_subset.loc[:]
+    
 
     # Create the output netCDF file based on a TWI LFFS convetion for netCDF timeseries.
     ds = nc.Dataset(output_nc, "w", format="NETCDF4")
@@ -107,9 +125,14 @@ def wse_shp_to_nc(poly_wse_shp, stations_locations_txt, hdf_filename, output_nc)
     datavar.long_name = "water surface elevation above geoid"
     datavar.units = "ft"
     datavar.datum = "navd88 2009.55"
+    datavar[:] = nearest_gdf_values_subset.loc[:]
+   
     
     point_id = ds.createVariable("point_id", "i4", ("nstation"), zlib=True, complevel=2)
     point_id[:] =nearest_gdf['point_id']
+
+    # point_name = ds.createVariable("point_name", str, ("nstation"), zlib=True, complevel=2)
+    # point_name[:] =nearest_gdf['point_name']
 
     tag = ds.createVariable("point_type", "i4", ("nstation"), zlib=True, complevel=2)
     tag.types = "0=gate, 1=levee, 2=roadway"

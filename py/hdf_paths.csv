@@ -1,7 +1,7 @@
 title,hdf_file,wse_bounds.geojson
 2yr Existing,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p11.hdf,"Z:\js\ResMap\data\westPark\2yr Existing Depth.geojson"
 2yr Proposed,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p20.hdf,"Z:\js\ResMap\data\westPark\2yr Proposed Depth.geojson"
-10yr Existing,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p11.hdf,"Z:\js\ResMap\data\westPark\10yr Existing Depth.geojson"
+10yr Existing,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p07.hdf,"Z:\js\ResMap\data\westPark\10yr Existing Depth.geojson"
 10yr Proposed,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p08.hdf,"Z:\js\ResMap\data\westPark\10yr Proposed Depth.geojson"
 100yr Existing,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p01.hdf,"Z:\js\ResMap\data\westPark\100yr Existing Depth.geojson"
 100yr Proposed,S:\For_Myles\WestPark\HEC-RASV6.3.1\WestPark.p02.hdf,"Z:\js\ResMap\data\westPark\100yr Proposed Depth.geojson"
