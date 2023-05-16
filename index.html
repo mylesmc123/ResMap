@@ -7,8 +7,7 @@
     <body>
         <link rel="stylesheet" href="./css/styles.css">
         <link rel="stylesheet" href="./css/layerControl.css">
-        <link rel="stylesheet" href="./css/legend.css">
-        <link rel="stylesheet" href="./css/timeseries.css">
+        <link rel="stylesheet" href="./css/overlays.css">
 
         <script src='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.js'></script>
         <link href='https://unpkg.com/maplibre-gl@latest/dist/maplibre-gl.css' rel='stylesheet' />
@@ -28,30 +27,26 @@
 
         <script type="text/javascript" src='js\sidebarToggle.js'></script>
         <script type="text/javascript" src='js\timeseriespanel.js'></script>
-
         
-        <div class="overlays">
-            <div class="sidebar" id="sidebar">
-                <h1 id="sidebarheader">Layer Groups</h1>
-                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-                <button class="sidebaropenbutton" id="sidebaropenbutton" onclick="openNav()">&#9776;</button>
-                <button class="timeseriestogglebutton" id="timeseriestogglebutton" onclick="toggleTimeseriesPanel()">&#x23f0</button>
-            </div>      
-
-            <div id="legends"></div>
-
-            <div class="timeseriespanel" id="timeseriespanel">
-                <h1 id="timeseriespanelheader">Timeseries Panel</h1>
+        <div id='map'>
+            <div class="overlays" id="overlays">
+                <div class="sidebar" id="sidebar">
+                    <h1 id="sidebarheader">Layer Groups</h1>
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                </div>
+                <div class="buttons" id="buttons">
+                    <button class="sidebaropenbutton" id="sidebaropenbutton" onclick="openNav()">&#9776;</button>
+                    <button class="timeseriestogglebutton" id="timeseriestogglebutton" onclick="toggleTimeseriesPanel()">&#x23f0</button>
+                </div>      
+                <div id="legends"></div>
+                <div class="timeseriespanel" id="timeseriespanel">
+                    <h1 id="timeseriespanelheader">Timeseries Panel</h1>
+                </div>
             </div>
         </div>
-
-        <div id='map'>
-            
-        </div>
-
+    
         <script type="module" src='./js/map.js'></script>
     </body>
-    
 </html>
 
 

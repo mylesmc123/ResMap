@@ -1,0 +1,95 @@
+#legends {
+    background-color: rgba(255, 255, 255, 0.748);
+    box-shadow: 0 4px 4px 4px rgba(0,0,0,0.05);
+    /* visibility: hidden;  */
+    display: none;
+    width: fit-content;
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    height: fit-content;
+    z-index: 5;
+    
+}
+
+  .column {
+    flex: 50%;
+    }
+  .row {
+    display: flex;
+  }
+
+.sidebar {
+background-color: white;
+box-shadow: 0 4px 4px 4px rgba(0,0,0,0.05);
+width: 250px;
+position: fixed;
+left: 0;
+height: 100%;
+z-index: 2;
+}
+  
+h1 {
+font-size: 1.2rem;
+margin: 0.3rem;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+  
+/* The button used to open the sidebar */
+.sidebaropenbutton {
+position: fixed;
+top: 10px;
+left: 10px;
+font-size: 20px;
+cursor: pointer;
+background-color: #111;
+color: white;
+padding: 10px 15px;
+border: none;
+visibility: hidden;
+z-index: 1;
+}
+  
+.sidebaropenbutton:hover {
+background-color: #444;
+}
+
+.timeseriespanel {
+    background-color: white;
+    box-shadow: 0 4px 4px 4px rgba(0,0,0,0.05);
+    display: fixed;
+    width: 100%;
+    position: absolute;
+    bottom: 2px;
+    left: 250px;
+    height: fit-content;
+    z-index: 1;
+    visibility: hidden;
+  }
+  
+  /* The button used to open the timeseries */
+  .timeseriestogglebutton {
+    font-size: 20px;
+    position: fixed;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 10px;
+    border: none;
+    top: 60px;
+    left: 10px;
+    visibility: visible;
+    z-index: 1;
+  }
+  
+  .timeseriestogglebutton:hover {
+    background-color: #444;
+  }

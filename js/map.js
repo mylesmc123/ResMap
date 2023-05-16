@@ -410,12 +410,11 @@ map.on('load', function () {
     popup.remove();
   });
 
-  // When a click event occurs on a feature in the places layer, open a popup at the
+  // When a click event occurs on a feature in the timeseries layer, open a popup at the
   // location of the feature, with description HTML from its properties.
   map.on('click', 'timeseries', function (e) {
     var coordinates = e.features[0].geometry.coordinates.slice();
     var name = e.features[0].properties.Name;
-      
     while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
       coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }

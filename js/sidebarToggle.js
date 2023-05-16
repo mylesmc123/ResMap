@@ -5,7 +5,8 @@ function openNav() {
     // document.getElementById("map").style.marginLeft = "250px";
     document.getElementById("sidebarheader").innerText = "Layer Groups";
     document.getElementById("sidebaropenbutton").style.visibility = "hidden"
-  }
+    document.getElementById("timeseriespanel").style.left = document.getElementById("sidebar").style.width
+};
 
 /* Set the width of the sidebar to 0 and the left margin of the page content to 0 */
 function closeNav() {
@@ -15,4 +16,5 @@ function closeNav() {
     document.getElementById("sidebaropenbutton").style.visibility = "visible"
     // document.getElementById("map").style.marginLeft = "0";
     document.getElementById("sidebar").style.visibility = "hidden"
+    document.getElementById("timeseriespanel").style.left = "0px"
   }
