@@ -41,3 +41,14 @@ background-position: center;
 background-repeat: no-repeat;
 background-size: 70%;
 }
+
+/* .maplibregl-popup-content-wrapper {
+    padding: 50%;
+} */
+
+/* fit popup to content */
+.plotly-popup .maplibregl-popup-content {
+    /* max-width: 500px; */
+    /* width: 500px; */
+    display: flex;
+}

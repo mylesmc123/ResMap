@@ -68,7 +68,7 @@ var popup = new maplibregl.Popup({
   closeButton: false
 });
 
-map.on('load', function () {
+map.on('style.load', function () {
 
   // map.addSource('Depth', {
   //   'type': 'geojson',
@@ -413,6 +413,22 @@ map.on('load', function () {
   // When a click event occurs on a feature in the places layer, open a popup at the
   // location of the feature, with description HTML from its properties.
   map.on('click', 'timeseries', function (e) {
+
+    // remove any existing popups
+    const popups = document.getElementsByClassName("maplibregl-popup");
+    // const plots = document.getElementById("plotlyPlot");
+
+    if (popups.length) {
+        popups[0].remove();
+    }
+    // try {
+    //   if (plots.length) {
+    //     plots[0].remove();
+    //   }
+    // } catch (error) {
+      
+    // }
+
     var coordinates = e.features[0].geometry.coordinates.slice();
     var name = e.features[0].properties.Name;
       
@@ -420,10 +436,11 @@ map.on('load', function () {
     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
     }
     console.log(coordinates);
-    new maplibregl.Popup()
+    new maplibregl.Popup({className: "plotly-popup"})
     .setLngLat(coordinates)
     // add div to DOM before creating plotly plot
     .setHTML('<div id="plotlyPlot"/>')
+    // .setContent(Popup.content {wid
     .addTo(map);
     
     // get timeseries json data
