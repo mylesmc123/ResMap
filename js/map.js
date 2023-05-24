@@ -69,7 +69,7 @@ var popup = new maplibregl.Popup({
 });
 
 map.on('style.load', function () {
-
+  console.log('hello CDSM');
   // map.addSource('Depth', {
   //   'type': 'geojson',
   //   'data': {
