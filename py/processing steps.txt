@@ -1,0 +1,7 @@
+assumed max depth or wse geojsons have already been processed.
+
+update hdf_paths.csv to point to associated max wse geojsons and their associated hdf plan file
+
+batch_hdfs will use the csv file to produce shp's from the hdf that include all tooltip info and extract to tooltip geojsons (./data/{project_name}/tooltip_layers).
+
+the script will also use ts_points.txt to produce a timeseries json (./data/{project_name}/timeseries/timeseries.json)

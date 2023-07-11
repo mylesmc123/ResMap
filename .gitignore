@@ -1,3 +1,5 @@
 py/output/**
 *.pyc
 
+*/Thumbs.db
+data/img/Thumbs.db

@@ -20,7 +20,7 @@ if not os.path.exists(timeseries_dir):
 # create timeseries dictionary
 event_timeseries_dict = {}
 
-# Open shp and make edits, output to geoJson data to be added as an invisible tooltip layer.
+# Open shp and make edits, output to geoJson data to be added as a tooltip layer.
 def make_tooltip_file(args):
     wse_gdf = gpd.read_file(os.path.join(args.postprocessingdirectory, args.forecast, r'tempfiles\ras_wse.shp'))
     wse_gdf.to_crs(epsg=4326, inplace=True)
