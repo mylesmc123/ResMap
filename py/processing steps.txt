@@ -1,11 +1,18 @@
 Assumed max depth or wse geojsons have already been processed.
-    For westpark, geojsons were created via QGIS from exported max rasters from RAS Mapper. The steps: (https://gis.stackexchange.com/questions/310076/qgis-dissolve-after-raster-to-polygon-not-working-correctly-only-dissolving-a)
-        Polygonize
+    For westpark, geojsons were created via QGIS from exported max rasters from RAS Mapper.
+    For large extents or high-res extents, its best to compute the RAS simulation with a higher mapping interval so the wse_to_shp function pulling timeseries to shp runs faster, 
+    and shp doesnt get too big.  
+    The steps: (https://gis.stackexchange.com/questions/310076/qgis-dissolve-after-raster-to-polygon-not-working-correctly-only-dissolving-a)
+        Polygonize (This file will be very large, Greenbelt = 600mb)
         Get Min Extent
         Clip Extent to Polygonized layer
-        Simplify to 10'
-        Feature to Json
-        Copy Json to ./data
+        Simplify to 10' (30mb)
+        Feature to Json (70mb) (Optional, can use shp instead of geoJson)
+        Copy Json to ./data/{project_name}
+        Update/create ./{project_name}/hdf_paths.csv
+
+        For greenbelt, the ras_wse_to_shp output was 6gb+, and required the use of ogr2ogr to subset it before using geopandas to open a geodataframe.
+        This ogr2ogr process has been included as a module and function is called within batch_hdfs.py. 
 
 From the dissolved layer, we will use it as a boundary and then extract the RAS mesh output from the p## hdf to extract cell center data.
 

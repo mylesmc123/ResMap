@@ -226,7 +226,9 @@ def ras_output(args):
         f.write(args.wkt)
         f.close()
 
-    ras_output_wse_shp_to_nc.wse_shp_to_nc(poly_wse_shp, args.points, args.file, output_nc)
+    # TODO check if args.points is a valid, only run this function if it is.
+    # Not running Timeseries for Greenbelt
+    # ras_output_wse_shp_to_nc.wse_shp_to_nc(poly_wse_shp, args.points, args.file, output_nc)
 
 if __name__ == "__main__":
     # Command Line Arguments
