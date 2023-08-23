@@ -1,4 +1,13 @@
-assumed max depth or wse geojsons have already been processed.
+Assumed max depth or wse geojsons have already been processed.
+    For westpark, geojsons were created via QGIS from exported max rasters from RAS Mapper. The steps: (https://gis.stackexchange.com/questions/310076/qgis-dissolve-after-raster-to-polygon-not-working-correctly-only-dissolving-a)
+        Polygonize
+        Get Min Extent
+        Clip Extent to Polygonized layer
+        Simplify to 10'
+        Feature to Json
+        Copy Json to ./data
+
+From the dissolved layer, we will use it as a boundary and then extract the RAS mesh output from the p## hdf to extract cell center data.
 
 update hdf_paths.csv to point to associated max wse geojsons and their associated hdf plan file
 
